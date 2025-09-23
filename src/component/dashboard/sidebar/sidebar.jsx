@@ -15,6 +15,7 @@ import {
   MdHelpCenter,
   MdLogout,
 } from "react-icons/md";
+import { GiButtonFinger } from "react-icons/gi";
 
 const menuItems = [
   {
@@ -32,7 +33,7 @@ const menuItems = [
       },
       {
         title: "Products",
-        path: "/dashboard/products",
+        path: "/dashboard/product",
         icon: <MdShoppingBag />,
       },
       {
@@ -105,6 +106,10 @@ export default function SideBar() {
           </li>
         ))}
       </ul>
+      <button className={styles.logout}>
+        Logout
+        <MdLogout />
+      </button>
     </div>
   );
 }
