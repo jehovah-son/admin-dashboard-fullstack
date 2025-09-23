@@ -3,13 +3,13 @@
 }
 
 .menu {
-  flex: 1;
+  flex: 2;
   background-color: var(--bgSoft);
   color: var(--textSoft);
   padding: 20px;
 }
 
 .content {
-  flex: 4;
+  flex: 5;
   padding: 20px;
 }
