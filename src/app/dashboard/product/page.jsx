@@ -10,7 +10,7 @@ export default function ProductsPage() {
     <div className={styles.container}>
       <div className={styles.top}>
         <Search placeholder="Search for a product..." />
-        <Link href="/dashboard/products/add">
+        <Link href="/dashboard/product/add">
           <button className={styles.addButton}>Add New</button>
         </Link>
       </div>
