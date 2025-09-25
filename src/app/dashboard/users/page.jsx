@@ -3,14 +3,15 @@ import styles from "../../../component/dashboard/UserPage Compo/user.module.css"
 import Link from "next/link";
 import Image from "next/image";
 import NoAvatar from "../../../../public/noavatar.png";
+import Pagination from "../../../component/dashboard/pagination/pagination";
 
 export default function UserPage({ placeholder }) {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <Search placeholder="Search for a user" />
+        <Search placeholder="Search for a user..." />
         <Link href="/dashboard/users/add">
-          <button className={styles.addButton}>Add User</button>
+          <button className={styles.addButton}>Add New</button>
         </Link>
       </div>
       <table className={styles.table}>
@@ -60,6 +61,7 @@ export default function UserPage({ placeholder }) {
           </tr>
         </tbody>
       </table>
+      <Pagination />
     </div>
   );
 }
