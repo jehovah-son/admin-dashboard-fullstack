@@ -46,7 +46,7 @@ export default function UserPage({ placeholder }) {
             <td>Active</td>
             <td>
               <div className={styles.buttons}>
-                <Link href="/">
+                <Link href="/dashboard/users/id">
                   <button className={`${styles.button} ${styles.view}`}>
                     View
                   </button>
