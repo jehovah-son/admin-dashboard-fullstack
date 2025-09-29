@@ -5,7 +5,7 @@ import Image from "next/image";
 import NoAvatar from "../../../../public/noavatar.png";
 import Pagination from "../../../component/dashboard/pagination/pagination";
 
-export default function UserPage({ placeholder }) {
+export default function UserPage() {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
