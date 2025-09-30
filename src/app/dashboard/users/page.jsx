@@ -46,7 +46,7 @@ export default async function UserPage() {
               </td>
 
               <td>{user.email}</td>
-              <td>13.01.2020</td>
+              <td>13.01.2025</td>
               <td>{user.isAdmin}</td>
               <td>{user.isActive}</td>
               <td>
