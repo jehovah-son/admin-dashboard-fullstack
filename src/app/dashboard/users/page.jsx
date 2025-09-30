@@ -35,7 +35,7 @@ export default async function UserPage() {
               <td>
                 <div className={styles.user}>
                   <Image
-                    src={user ? user.img : NoAvatar}
+                    src={user.img ? user.img : NoAvatar}
                     alt="user"
                     width={40}
                     height={40}
@@ -46,12 +46,12 @@ export default async function UserPage() {
               </td>
 
               <td>{user.email}</td>
-              <td>13.01.2025</td>
-              <td>{user.isAdmin}</td>
-              <td>{user.isActive}</td>
+              <td>{user.createdAt}</td>
+              <td>{user.isAdmin ? "Admin" : "Client"}</td>
+              <td>{user.isActive ? "Active" : "Passive"}</td>
               <td>
                 <div className={styles.buttons}>
-                  <Link href="/dashboard/users/id">
+                  <Link href={`/dashboard/users/${user.id}`}>
                     <button className={`${styles.button} ${styles.view}`}>
                       View
                     </button>
