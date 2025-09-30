@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema ({
 
 
 
-const ProductSchema = new mongoose.Schema ({
+const productSchema = new mongoose.Schema ({
     title: {
         type: String,
         required : true,
@@ -75,3 +75,8 @@ const ProductSchema = new mongoose.Schema ({
 },
 {timestamps: true}
 )
+
+//check the mogoose model if user exit use it if not create new one
+export const User =mongoose.models.User || mongoose.model("User", userSchema,  )
+// same for product
+export const Product =mongoose.models.Product || mongoose.model("Product", productSchema)

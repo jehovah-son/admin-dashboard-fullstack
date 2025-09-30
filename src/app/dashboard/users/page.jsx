@@ -4,8 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import NoAvatar from "../../../../public/noavatar.png";
 import Pagination from "../../../component/dashboard/pagination/pagination";
+import { fetchUser } from "../../lib/data";
 
-export default function UserPage() {
+export default async function UserPage() {
+  const users = await fetchUser();
+
+  console.log(users);
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -26,39 +30,41 @@ export default function UserPage() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <div className={styles.user}>
-                <Image
-                  src={NoAvatar}
-                  alt="user"
-                  width={40}
-                  height={40}
-                  className={styles.userImage}
-                />
-                John Doe
-              </div>
-            </td>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>
+                <div className={styles.user}>
+                  <Image
+                    src={user ? user.img : NoAvatar}
+                    alt="user"
+                    width={40}
+                    height={40}
+                    className={styles.userImage}
+                  />
+                  {user.username}
+                </div>
+              </td>
 
-            <td>john@gmail.com</td>
-            <td>13.01.2020</td>
-            <td>Admin</td>
-            <td>Active</td>
-            <td>
-              <div className={styles.buttons}>
-                <Link href="/dashboard/users/id">
-                  <button className={`${styles.button} ${styles.view}`}>
-                    View
-                  </button>
-                </Link>
-                <Link href="/">
-                  <button className={`${styles.button} ${styles.delete}`}>
-                    Delete
-                  </button>
-                </Link>
-              </div>
-            </td>
-          </tr>
+              <td>{user.email}</td>
+              <td>13.01.2020</td>
+              <td>{user.isAdmin}</td>
+              <td>{user.isActive}</td>
+              <td>
+                <div className={styles.buttons}>
+                  <Link href="/dashboard/users/id">
+                    <button className={`${styles.button} ${styles.view}`}>
+                      View
+                    </button>
+                  </Link>
+                  <Link href="/">
+                    <button className={`${styles.button} ${styles.delete}`}>
+                      Delete
+                    </button>
+                  </Link>
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <Pagination />
