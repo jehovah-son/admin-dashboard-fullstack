@@ -5,7 +5,7 @@ import Image from "next/image";
 import NoAvatar from "../../../../public/noavatar.png";
 import Pagination from "../../../component/dashboard/pagination/pagination";
 import { fetchUser } from "../../lib/data";
-
+import { Suspense } from "react";
 export default async function UserPage({ searchParams }) {
   const q = searchParams?.q || "";
   //default is going to be 1 if there is no page in the url is going to be 1
@@ -70,7 +70,9 @@ export default async function UserPage({ searchParams }) {
           ))}
         </tbody>
       </table>
-      <Pagination count={count} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Pagination count={count} />
+      </Suspense>
     </div>
   );
 }
