@@ -5,6 +5,7 @@ import Image from "next/image";
 import NoAvatar from "../../../../public/noavatar.png";
 import Pagination from "../../../component/dashboard/pagination/pagination";
 import { fetchUser } from "../../lib/data";
+import { Suspense } from "react";
 
 export default async function UserPage({ searchParams }) {
   const q = searchParams?.q || "";
@@ -14,7 +15,9 @@ export default async function UserPage({ searchParams }) {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <Search placeholder="Search for a user..." />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Search placeholder="Search for a user..." />
+        </Suspense>
         <Link href="/dashboard/users/add">
           <button className={styles.addButton}>Add New</button>
         </Link>
