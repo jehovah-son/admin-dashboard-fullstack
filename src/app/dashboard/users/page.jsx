@@ -6,8 +6,9 @@ import NoAvatar from "../../../../public/noavatar.png";
 import Pagination from "../../../component/dashboard/pagination/pagination";
 import { fetchUser } from "../../lib/data";
 
-export default async function UserPage() {
-  const users = await fetchUser();
+export default async function UserPage({ searchParams }) {
+  const q = searchParams?.q || "";
+  const users = await fetchUser(q);
 
   console.log(users);
   return (
@@ -46,7 +47,7 @@ export default async function UserPage() {
               </td>
 
               <td>{user.email}</td>
-              <td>{user.createdAt}</td>
+              <td>{user.createdAt?.toDateString()}</td>
               <td>{user.isAdmin ? "Admin" : "Client"}</td>
               <td>{user.isActive ? "Active" : "Passive"}</td>
               <td>
