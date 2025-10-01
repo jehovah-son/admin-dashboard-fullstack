@@ -15,9 +15,8 @@ export default async function UserPage({ searchParams }) {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Search placeholder="Search for a user..." />
-        </Suspense>
+        <Search placeholder="Search for a user..." initialValue={q} />
+
         <Link href="/dashboard/users/add">
           <button className={styles.addButton}>Add New</button>
         </Link>
