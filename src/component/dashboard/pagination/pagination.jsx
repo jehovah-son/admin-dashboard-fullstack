@@ -3,11 +3,10 @@ import styles from "../pagination/pagination.module.css";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function Pagination({ count, page }) {
-  const searchParams = useSearchParams();
   const pathName = usePathname();
   const { replace } = useRouter();
 
-  const params = new URLSearchParams(searchParams);
+  const params = new URLSearchParams();
 
   const ITEM_PER_PAGE = 2;
 
