@@ -8,7 +8,9 @@ import { fetchUser } from "../../lib/data";
 
 export default async function UserPage({ searchParams }) {
   const q = searchParams?.q || "";
-  const users = await fetchUser(q);
+  //default is going to be 1 if there is no page in the url is going to be 1
+  const page = searchParams?.page || 1;
+  const users = await fetchUser(q, page);
 
   console.log(users);
   return (
