@@ -10,7 +10,7 @@ export default async function UserPage({ searchParams }) {
   const q = searchParams?.q || "";
   //default is going to be 1 if there is no page in the url is going to be 1
   const page = searchParams?.page || 1;
-  const users = await fetchUser(q, page);
+  const { count, users } = await fetchUser(q, page);
 
   console.log(users);
   return (
@@ -70,7 +70,7 @@ export default async function UserPage({ searchParams }) {
           ))}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination count={count} />
     </div>
   );
 }
