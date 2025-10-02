@@ -50,7 +50,7 @@ export default async function ProductsPage({ searchParams }) {
 
               <td>{product.desc}</td>
               <td>${product.price}</td>
-              <td>{product.createdAt?.toDateString()}</td>
+              <td>{product.createdAt?.toDateString().slice(4, 16)}</td>
               <td>{product.stock}</td>
               <td>
                 <div className={styles.buttons}>

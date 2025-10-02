@@ -1,8 +1,10 @@
 import styles from "../../../../component/dashboard/ProductPage Compo/addproduct.module.css";
+import { AddProduct } from "../../../lib/actions";
+
 export default function AddProductPage() {
   return (
     <div className={styles.container}>
-      <form action="" className={styles.form}>
+      <form action={AddProduct} className={styles.form}>
         <input type="text" placeholder="title" name="title" required />
         <select name="cat" id="cat">
           <option value="general">Choose a Category</option>

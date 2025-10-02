@@ -49,7 +49,7 @@ export default async function UserPage({ searchParams }) {
               </td>
 
               <td>{user.email}</td>
-              <td>{user.createdAt?.toDateString()}</td>
+              <td>{user.createdAt?.toDateString().slice(4, 16)}</td>
               <td>{user.isAdmin ? "Admin" : "Client"}</td>
               <td>{user.isActive ? "Active" : "Passive"}</td>
               <td>

@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "debounce": "^2.2.0",
     "mongoose": "^8.18.3",
     "next": "15.5.3",
