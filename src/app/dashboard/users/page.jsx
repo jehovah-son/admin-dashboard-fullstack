@@ -70,9 +70,8 @@ export default async function UserPage({ searchParams }) {
           ))}
         </tbody>
       </table>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Pagination count={count} page={page} />
-      </Suspense>
+
+      <Pagination count={count} page={page} />
     </div>
   );
 }
