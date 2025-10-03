@@ -133,6 +133,60 @@ export const DeleteUser = async (formData) => {
 
 // Update user PUT method
 
+export const UpDateProduct = async (formData) => {
+  // Convert formData to plain object
+  const { id,   title,
+      desc,
+      price,
+      stock,
+      color,
+      size, } =
+    Object.fromEntries(formData);
+  try {
+    // connect to DB
+    await ConnectToDB();
+
+    const updateFields = {
+      title,
+      desc,
+      price,
+      stock,
+      color,
+      size,
+    };
+
+    // check every input if any input is === to an empty string or undefined delete it
+    Object
+      .keys(updateFields)
+      .forEach(
+        (key) =>
+          (updateFields[key] === "" || undefined) && delete updateFields[key]
+      );
+
+    await Product.findByIdAndUpdate(id, updateFields);
+  } catch (err) {
+    console.error("❌ Error update product:", err);
+    throw new Error("Failed to update product!");
+  }
+
+
+  // 👉 revalidatePath("/dashboard/users") is like telling Next.js:
+// “Hey, forget the old data for this page. Go and get the fresh users from the database.”
+
+// ✅ Without revalidatePath: page might show stale/old users list.
+// ✅ With revalidatePath: page shows the latest users list right away.
+
+  // ✅ revalidate users page
+  revalidatePath("/dashboard/product");
+
+  // ✅ redirect user after success
+  redirect("/dashboard/product");
+};
+
+
+
+// Update Product PUT method
+
 export const UpDateUser = async (formData) => {
   // Convert formData to plain object
   const { id, username, email, password, phone, address, isAdmin, isActive } =
@@ -166,16 +220,15 @@ export const UpDateUser = async (formData) => {
   }
 
 
+  // 👉 revalidatePath("/dashboard/users") is like telling Next.js:
+// “Hey, forget the old data for this page. Go and get the fresh users from the database.”
+
+// ✅ Without revalidatePath: page might show stale/old users list.
+// ✅ With revalidatePath: page shows the latest users list right away.
+
   // ✅ revalidate users page
   revalidatePath("/dashboard/users");
 
   // ✅ redirect user after success
   redirect("/dashboard/users");
 };
-
-
-// 👉 revalidatePath("/dashboard/users") is like telling Next.js:
-// “Hey, forget the old data for this page. Go and get the fresh users from the database.”
-
-// ✅ Without revalidatePath: page might show stale/old users list.
-// ✅ With revalidatePath: page shows the latest users list right away.
