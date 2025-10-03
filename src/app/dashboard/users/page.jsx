@@ -5,6 +5,7 @@ import Image from "next/image";
 import NoAvatar from "../../../../public/noavatar.png";
 import Pagination from "../../../component/dashboard/pagination/pagination";
 import { fetchUser } from "../../lib/data";
+import { DeleteUser } from "../../lib/actions";
 
 export default async function UserPage({ searchParams }) {
   const q = searchParams?.q || "";
@@ -59,11 +60,12 @@ export default async function UserPage({ searchParams }) {
                       View
                     </button>
                   </Link>
-                  <Link href="/">
+                  <form action={DeleteUser}>
+                    <input type="hidden" name="id" value={user.id} />
                     <button className={`${styles.button} ${styles.delete}`}>
                       Delete
                     </button>
-                  </Link>
+                  </form>
                 </div>
               </td>
             </tr>

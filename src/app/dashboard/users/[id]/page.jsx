@@ -1,15 +1,19 @@
 import styles from "../../../../component/dashboard/UserPage Compo/singleuserpage/singleuserpage.module.css";
 import Image from "next/image";
 import NoAvatar from "../../../../../public/noavatar.png";
+import { fetchUserById } from "../../../lib/data";
 
-export default function SingleUserPage() {
+export default async function SingleUserPage({ params }) {
+  const { id } = params;
+  const user = await fetchUserById(id);
+
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <div className={styles.imgContainer}>
-          <Image src={NoAvatar} alt="no avatar" fill />
+          <Image src={user.img ? user.img : NoAvatar} alt="no avatar" fill />
         </div>
-        John Doe
+        {user.username}
       </div>
       <div className={styles.formContainer}>
         <form action="" className={styles.form}>

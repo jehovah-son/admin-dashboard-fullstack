@@ -5,6 +5,7 @@ import NoProduct from "../../../../public/noproduct.jpg";
 import Search from "../../../component/dashboard/search component/search";
 import Pagination from "../../../component/dashboard/pagination/pagination";
 import { fetchProduct } from "../../lib/data";
+import { DeleteProduct } from "../../lib/actions";
 
 export default async function ProductsPage({ searchParams }) {
   const q = searchParams?.q || "";
@@ -59,11 +60,13 @@ export default async function ProductsPage({ searchParams }) {
                       View
                     </button>
                   </Link>
-                  <Link href="/">
+
+                  <form action={DeleteProduct}>
+                    <input type="hidden" name="id" value={product.id} />
                     <button className={`${styles.button} ${styles.delete}`}>
                       Delete
                     </button>
-                  </Link>
+                  </form>
                 </div>
               </td>
             </tr>
