@@ -1,4 +1,4 @@
-'use server'
+"use server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { User } from "../lib/models";
@@ -8,7 +8,6 @@ import { Product } from "../lib/models";
 
 //Post
 export const AddUser = async (formData) => {
-
   // Convert formData to plain object
   const { username, email, password, phone, address, isAdmin, isActive } =
     Object.fromEntries(formData);
@@ -37,23 +36,24 @@ export const AddUser = async (formData) => {
     throw new Error("Failed to create user!");
   }
 
+// 👉 revalidatePath("/dashboard/users") is like telling Next.js:
+// “Hey, forget the old data for this page. Go and get the fresh users from the database.”
+
+// ✅ Without revalidatePath: page might show stale/old users list.
+// ✅ With revalidatePath: page shows the latest users list right away.
+
+
   // ✅ revalidate users page
   revalidatePath("/dashboard/users");
-
   // ✅ redirect user after success
   redirect("/dashboard/users");
 };
 
-
-
-
 // Post Product
 
-
 export const AddProduct = async (formData) => {
- 
   // Convert formData to plain object
-  const { title, desc, price, stock, color, size, } =
+  const { title, desc, price, stock, color, size } =
     Object.fromEntries(formData);
   try {
     // connect to DB
@@ -61,7 +61,12 @@ export const AddProduct = async (formData) => {
 
     // create a new user
     const newProduct = new Product({
-   title, desc, price, stock, color, size, 
+      title,
+      desc,
+      price,
+      stock,
+      color,
+      size,
     });
 
     await newProduct.save();
@@ -77,17 +82,11 @@ export const AddProduct = async (formData) => {
   redirect("/dashboard/product");
 };
 
-
-
-
 // Delete Product
 
-
 export const DeleteProduct = async (formData) => {
- 
   // Convert formData to plain object
-  const { id } =
-    Object.fromEntries(formData);
+  const { id } = Object.fromEntries(formData);
   try {
     // connect to DB
     await ConnectToDB();
@@ -100,20 +99,13 @@ export const DeleteProduct = async (formData) => {
 
   // ✅ revalidate users page
   revalidatePath("/dashboard/product");
-
 };
-
-
-
 
 // Delete User
 
-
 export const DeleteUser = async (formData) => {
- 
   // Convert formData to plain object
-  const { id } =
-    Object.fromEntries(formData);
+  const { id } = Object.fromEntries(formData);
   try {
     // connect to DB
     await ConnectToDB();
@@ -124,10 +116,17 @@ export const DeleteUser = async (formData) => {
     throw new Error("Failed to delete user!");
   }
 
+// 👉 revalidatePath("/dashboard/users") is like telling Next.js:
+// “Hey, forget the old data for this page. Go and get the fresh users from the database.”
+
+// ✅ Without revalidatePath: page might show stale/old users list.
+// ✅ With revalidatePath: page shows the latest users list right away.
+
+
   // ✅ revalidate users page
   revalidatePath("/dashboard/users");
-
 };
+
 
 
 
@@ -135,34 +134,37 @@ export const DeleteUser = async (formData) => {
 // Update user PUT method
 
 export const UpDateUser = async (formData) => {
-
   // Convert formData to plain object
-  const { username, email, password, phone, address, isAdmin, isActive } =
+  const { id, username, email, password, phone, address, isAdmin, isActive } =
     Object.fromEntries(formData);
   try {
     // connect to DB
     await ConnectToDB();
 
-    // to hash your password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    // create a new user
-    const newUser = new User({
+    const updateFields = {
       username,
       email,
-      password: hashedPassword,
+      password,
       phone,
       address,
-      isAdmin: isAdmin, // if coming from form checkbox
-      isActive: isActive,
-    });
+      isAdmin,
+      isActive,
+    };
 
-    await newUser.save();
+    // check every input if any input is === to an empty string or undefined delete it
+    Object
+      .keys(updateFields)
+      .forEach(
+        (key) =>
+          (updateFields[key] === "" || undefined) && delete updateFields[key]
+      );
+
+    await User.findByIdAndUpdate(id, updateFields);
   } catch (err) {
-    console.error("❌ Error creating user:", err);
-    throw new Error("Failed to create user!");
+    console.error("❌ Error update user:", err);
+    throw new Error("Failed to update user!");
   }
+
 
   // ✅ revalidate users page
   revalidatePath("/dashboard/users");
@@ -170,3 +172,10 @@ export const UpDateUser = async (formData) => {
   // ✅ redirect user after success
   redirect("/dashboard/users");
 };
+
+
+// 👉 revalidatePath("/dashboard/users") is like telling Next.js:
+// “Hey, forget the old data for this page. Go and get the fresh users from the database.”
+
+// ✅ Without revalidatePath: page might show stale/old users list.
+// ✅ With revalidatePath: page shows the latest users list right away.

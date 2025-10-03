@@ -2,6 +2,7 @@ import styles from "../../../../component/dashboard/UserPage Compo/singleuserpag
 import Image from "next/image";
 import NoAvatar from "../../../../../public/noavatar.png";
 import { fetchUserById } from "../../../lib/data";
+import { UpDateUser } from "../../../lib/actions";
 
 export default async function SingleUserPage({ params }) {
   const { id } = params;
@@ -16,24 +17,33 @@ export default async function SingleUserPage({ params }) {
         {user.username}
       </div>
       <div className={styles.formContainer}>
-        <form action="" className={styles.form}>
+        <form action={UpDateUser} className={styles.form}>
+          <input type="hidden" name="id" value={user.id} />
           <label>Username</label>
-          <input type="text" name="username" placeholder="John Doe" />
+          <input type="text" name="username" placeholder={user.username} />
           <label>Email</label>
-          <input type="email" name="email" placeholder="JohnDoe@gmail.com" />
+          <input type="email" name="email" placeholder={user.email} />
           <label>Password</label>
-          <input type="password" name="password" placeholder="John Doe" />
+          <input type="password" name="password" placeholder={user.password} />
           <label>Phone</label>
-          <input type="phone" name="phone" placeholder="+234" />
+          <input type="phone" name="phone" placeholder={user.phone} />
           <label>Address</label>
-          <textarea type="text" name="address" placeholder="Lagos" />
+          <textarea type="text" name="address" placeholder={user.address} />
           <label>Is Admin?</label>
-          <select name="isAdmin" id="isAdmin">
+          <select
+            name="isAdmin"
+            id="isAdmin"
+            defaultValue={user.Admin ? "true" : "false"}
+          >
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </select>
           <label>Is Active?</label>
-          <select name="isActive" id="isActive">
+          <select
+            name="isActive"
+            id="isActive"
+            defaultValue={user.isActive ? "true" : "false"}
+          >
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </select>
